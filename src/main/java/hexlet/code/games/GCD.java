@@ -1,20 +1,17 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
+
 import java.util.Random;
 
-public final class GCD implements Game {
-    private int correctAnswer;
+public final class GCD {
+    private static int correctAnswer;
 
     private static final int MAX_VALUE = 100;
-    @Override
-    public String getTask() {
-        return "Find the greatest common divisor of given numbers.";
-    }
 
-    @Override
-    public String getQuestion() {
+    private static String getQuestion() {
+
         Random rnd = new Random();
-
         int firstValue = Math.abs(rnd.nextInt(MAX_VALUE)) + 1;
         int secondValue = Math.abs(rnd.nextInt(MAX_VALUE)) + 1;
 
@@ -23,25 +20,30 @@ public final class GCD implements Game {
         return firstValue + " " + secondValue;
     }
 
-    @Override
-    public boolean isAnswerRight(String answer) {
-        return Integer.parseInt(answer) == correctAnswer;
-    }
-
-    @Override
-    public String getCorrectAnswer() {
-        return Integer.toString(correctAnswer);
-    }
 
     private static int gcd(int a, int b) {
-        int r = a % b;
 
-        while (r != 0) {
+        int remainder = a % b;
+
+        while (remainder != 0) {
             a = b;
-            b = r;
-            r = a % b;
+            b = remainder;
+            remainder = a % b;
 
         }
+
         return b;
+    }
+
+    public static void play() {
+
+        Engine.greet();
+        System.out.println("Find the greatest common divisor of given numbers.");
+
+        while (!Engine.isFinished()) {
+
+            Engine.playRound(getQuestion(), Integer.toString(correctAnswer));
+
+        }
     }
 }

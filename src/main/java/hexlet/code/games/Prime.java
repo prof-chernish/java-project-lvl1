@@ -1,10 +1,12 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
+
 import java.util.Arrays;
 import java.util.Random;
 
-public final class Prime implements Game {
-    private String correctAnswer;
+public final class Prime {
+    private static String correctAnswer;
 
     private static final int[] PRIMES = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
                                          31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
@@ -18,31 +20,34 @@ public final class Prime implements Game {
                                          397, 401, 409, 419, 421, 431, 433, 439,
                                          443, 449, 457, 461, 463, 467, 479, 487,
                                          491, 499, 503, 509, 521, 523, 541};
-    @Override
-    public String getTask() {
-        return "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
-    }
 
-    @Override
-    public String getQuestion() {
+
+    private static String getQuestion() {
+
         int maxPrime = PRIMES[PRIMES.length - 1];
         Random rnd = new Random();
         int currentValue = Math.abs(rnd.nextInt(maxPrime));
+
         correctAnswer = isPrime(currentValue) ? "yes" : "no";
+
         return Integer.toString(currentValue);
     }
 
-    @Override
-    public boolean isAnswerRight(String answer) {
-        return correctAnswer.equals(answer);
-    }
 
-    @Override
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    private boolean isPrime(int number) {
+    private static boolean isPrime(int number) {
         return Arrays.binarySearch(PRIMES, number) >= 0;
     }
+
+    public static void play() {
+
+        Engine.greet();
+        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
+
+        while (!Engine.isFinished()) {
+
+            Engine.playRound(getQuestion(), correctAnswer);
+
+        }
+    }
+
 }

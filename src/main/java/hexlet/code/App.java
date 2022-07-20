@@ -27,11 +27,11 @@ public class App {
 
         switch (choice) {
             case "1" -> Engine.greet();
-            case "2" -> Engine.playGame(new Even());
-            case "3" -> Engine.playGame(new Calc());
-            case "4" -> Engine.playGame(new GCD());
-            case "5" -> Engine.playGame(new Progression());
-            case "6" -> Engine.playGame(new Prime());
+            case "2" -> Even.play();
+            case "3" -> Calc.play();
+            case "4" -> GCD.play();
+            case "5" -> Progression.play();
+            case "6" -> Prime.play();
             default -> {
             }
         }

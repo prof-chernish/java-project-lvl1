@@ -1,12 +1,13 @@
 package hexlet.code;
 
 import java.util.Scanner;
-import hexlet.code.games.Game;
 
 
 public class Engine {
     private static final int GOAL = 3;
     private static String userName;
+    private static int score = 0;
+    private static boolean isFinished;
 
     public static void greet() {
 
@@ -19,35 +20,31 @@ public class Engine {
 
     }
 
-    public static void playGame(Game game) {
-        int score = 0;
+    public static boolean isFinished() {
+        return isFinished;
+    }
 
-        greet();
+    public static void playRound(String question, String correctAnswer) {
+        System.out.println("Question: " + question);
+        System.out.print("Your answer: ");
 
-        System.out.println(game.getTask());
+        Scanner scanner = new Scanner(System.in);
+        String answer = scanner.next();
 
-        while (score < GOAL) {
-            System.out.println("Question: " + game.getQuestion());
-            System.out.print("Your answer: ");
+        if (answer.equals(correctAnswer)) {
+            System.out.println("Correct!");
+            score++;
+        } else {
+            System.out.println("'" + answer + "'" + " is wrong answer ;(. Correct answer was '"
+                    + correctAnswer + "'" + ".");
+            System.out.println("Let's try again, " + userName + "!");
 
-            Scanner scanner = new Scanner(System.in);
-            String answer = scanner.next();
-
-            if (game.isAnswerRight(answer)) {
-                System.out.println("Correct!");
-                score++;
-
-            } else {
-                System.out.println("'" + answer + "'" + " is wrong answer ;(. Correct answer was '"
-                        + game.getCorrectAnswer() + "'" + ".");
-                System.out.println("Let's try again, " + userName + "!");
-                break;
-            }
+            isFinished = true;
         }
 
         if (score == GOAL) {
+            isFinished = true;
             System.out.println("Congratulations, " + userName + "!");
         }
-
     }
 }

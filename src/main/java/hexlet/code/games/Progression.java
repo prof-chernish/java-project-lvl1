@@ -1,23 +1,17 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
+
 import java.util.Random;
 
-public final class Progression implements Game {
+public final class Progression {
     private static int correctAnswer;
     private static final int MAX_VALUE = 30;
-
     private static final int MAX_DIFFER = 10;
-
     private static final int MAX_LENGTH = 10;
-
     private static final int MIN_LENGTH = 5;
-    @Override
-    public String getTask() {
-        return "What number is missing in the progression?";
-    }
 
-    @Override
-    public String getQuestion() {
+    private static String getQuestion() {
 
         Random rnd = new Random();
         int progressionLength = rnd.nextInt(MIN_LENGTH, MAX_LENGTH + 1);
@@ -26,28 +20,32 @@ public final class Progression implements Game {
         int differ = rnd.nextInt(MAX_DIFFER);
         int currentElement = firstElement;
         String question = "";
+
         for (int i = 0; i < progressionLength; i++) {
             if (i == hiddenElementNumber) {
                 question = question + " ..";
                 correctAnswer = currentElement;
             } else {
                 question = question + " " + currentElement;
-
-
             }
             currentElement += differ;
 
         }
+
         return question.trim();
     }
 
-    @Override
-    public boolean isAnswerRight(String answer) {
-        return Integer.parseInt(answer) == correctAnswer;
+    public static void play() {
+
+        Engine.greet();
+        System.out.println("What number is missing in the progression?");
+
+        while (!Engine.isFinished()) {
+
+            Engine.playRound(getQuestion(), Integer.toString(correctAnswer));
+
+        }
     }
 
-    @Override
-    public String getCorrectAnswer() {
-        return Integer.toString(correctAnswer);
-    }
+
 }

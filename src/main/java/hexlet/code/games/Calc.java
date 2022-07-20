@@ -1,22 +1,17 @@
 package hexlet.code.games;
 
+import hexlet.code.Engine;
+
 import java.util.Random;
 
-public final class Calc implements Game {
-    private int correctAnswer;
+public final class Calc {
+    private static int correctAnswer;
     private static final int MAX_VALUE = 20;
     private static final int OPERATIONS_NUMBER = 3;
 
-    @Override
-    public String getTask() {
-        return "What is the result of the expression?";
-    }
-
-    @Override
-    public String getQuestion() {
+    private static String getQuestion() {
 
         Random rnd = new Random();
-
         int operatorNumber = rnd.nextInt(OPERATIONS_NUMBER);
         int firstValue = rnd.nextInt(MAX_VALUE);
         int secondValue = rnd.nextInt(MAX_VALUE);
@@ -34,16 +29,19 @@ public final class Calc implements Game {
                 break;
             default: break;
         }
+
         return firstValue + " " + operator + " " + secondValue;
     }
 
-    @Override
-    public boolean isAnswerRight(String answer) {
-        return Integer.parseInt(answer) == correctAnswer;
-    }
+    public static void play() {
 
-    @Override
-    public String getCorrectAnswer() {
-        return Integer.toString(correctAnswer);
+        Engine.greet();
+        System.out.println("What is the result of the expression?");
+
+        while (!Engine.isFinished()) {
+
+            Engine.playRound(getQuestion(), Integer.toString(correctAnswer));
+
+        }
     }
 }
