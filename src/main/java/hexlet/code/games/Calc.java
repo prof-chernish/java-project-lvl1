@@ -34,7 +34,7 @@ public final class Calc implements Game {
                 break;
             default: break;
         }
-        return firstValue + operator + secondValue;
+        return firstValue + " " + operator + " " + secondValue;
     }
 
     @Override
