@@ -8,7 +8,7 @@ public final class Progression implements Game {
 
     private static final int MAX_DIFFER = 10;
 
-    private static final int LENGTH = 6;
+    private static final int MAX_LENGTH = 10;
 
     private static final int MIN_LENGTH = 5;
     @Override
@@ -20,7 +20,7 @@ public final class Progression implements Game {
     public String getQuestion() {
 
         Random rnd = new Random();
-        int progressionLength = rnd.nextInt(LENGTH) + MIN_LENGTH;
+        int progressionLength = rnd.nextInt(MIN_LENGTH, MAX_LENGTH + 1);
         int hiddenElementNumber = rnd.nextInt(progressionLength);
         int firstElement = rnd.nextInt(MAX_VALUE);
         int differ = rnd.nextInt(MAX_DIFFER);
@@ -33,11 +33,12 @@ public final class Progression implements Game {
             } else {
                 question = question + " " + currentElement;
 
+
             }
             currentElement += differ;
 
         }
-        return question;
+        return question.trim();
     }
 
     @Override
