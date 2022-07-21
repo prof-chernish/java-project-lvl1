@@ -26,14 +26,22 @@ public class App {
         String choice = scanner.next();
 
         switch (choice) {
-            case "1" -> Engine.greet();
-            case "2" -> Even.play();
-            case "3" -> Calc.play();
-            case "4" -> GCD.play();
-            case "5" -> Progression.play();
-            case "6" -> Prime.play();
-            default -> {
-            }
+            case "1": Engine.greet();
+                break;
+            case "2": Even.play();
+                break;
+            case "3": Calc.play();
+                break;
+            case "4": GCD.play();
+                break;
+            case "5": Progression.play();
+                break;
+            case "6": Prime.play();
+                break;
+            case "0": break;
+            default: System.out.println("Введён неправильный номер.");
         }
-    }
+
+
+     }
 }
