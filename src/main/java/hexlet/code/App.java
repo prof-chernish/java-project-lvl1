@@ -26,7 +26,7 @@ public class App {
         String choice = scanner.next();
 
         switch (choice) {
-            case "1": Engine.greet();
+            case "1": Engine.greetAndGetUserName();
                 break;
             case "2": Even.play();
                 break;

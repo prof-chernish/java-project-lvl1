@@ -16,13 +16,12 @@ public final class Calc {
         String[] questions = new String[countRounds];
         String[] correctAnswers = new String[countRounds];
 
-
         Random rnd = new Random();
         int operatorNumber;
         int firstValue;
         int secondValue;
         String operator = "";
-        int correctAnswer = 0;
+        int correctAnswer;
 
         for (int i = 0; i < countRounds; i++) {
 
@@ -40,7 +39,8 @@ public final class Calc {
                 case 2: operator = "-";
                     correctAnswer = firstValue - secondValue;
                     break;
-                default: break;
+                default: correctAnswer = 0;
+                    break;
             }
 
             questions[i] = firstValue + " " + operator + " " + secondValue;
@@ -48,7 +48,6 @@ public final class Calc {
         }
 
         Engine.playGame(gameDescription, questions, correctAnswers);
-
 
     }
 

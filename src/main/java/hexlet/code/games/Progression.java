@@ -36,18 +36,22 @@ public final class Progression {
             question = "";
 
             for (int j = 0; j < progressionLength; j++) {
+
                 if (j == hiddenElementNumber) {
                     question = question + " ..";
                     correctAnswer = currentElement;
+
                 } else {
+
                     question = question + " " + currentElement;
+
                 }
+
                 currentElement += differ;
 
             }
 
             questions[i] = question.trim();
-
             correctAnswers[i] = Integer.toString(correctAnswer);
 
         }
@@ -55,7 +59,5 @@ public final class Progression {
         Engine.playGame(gameDescription, questions, correctAnswers);
 
     }
-
-
 
 }

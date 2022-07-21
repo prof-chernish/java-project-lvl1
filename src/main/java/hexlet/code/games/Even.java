@@ -22,7 +22,6 @@ public final class Even {
         for (int i = 0; i < countRounds; i++) {
 
             currentValue = rnd.nextInt(MAX_VALUE);
-
             correctAnswer = currentValue % 2 == 0 ? "yes" : "no";
 
             questions[i] = Integer.toString(currentValue);
