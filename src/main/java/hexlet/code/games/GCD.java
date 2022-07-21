@@ -5,19 +5,33 @@ import hexlet.code.Engine;
 import java.util.Random;
 
 public final class GCD {
-    private static int correctAnswer;
-
     private static final int MAX_VALUE = 100;
 
-    private static String getQuestion() {
+    public static void play() {
+
+        String gameDescription = "Find the greatest common divisor of given numbers.";
+
+        int countRounds = Engine.getCountRounds();
+        String[] questions = new String[countRounds];
+        String[] correctAnswers = new String[countRounds];
 
         Random rnd = new Random();
-        int firstValue = Math.abs(rnd.nextInt(MAX_VALUE)) + 1;
-        int secondValue = Math.abs(rnd.nextInt(MAX_VALUE)) + 1;
+        int firstValue;
+        int secondValue;
+        int correctAnswer;
 
-        correctAnswer = gcd(firstValue, secondValue);
+        for (int i = 0; i < countRounds; i++) {
 
-        return firstValue + " " + secondValue;
+            firstValue = Math.abs(rnd.nextInt(MAX_VALUE)) + 1;
+            secondValue = Math.abs(rnd.nextInt(MAX_VALUE)) + 1;
+            correctAnswer = gcd(firstValue, secondValue);
+
+            questions[i] = firstValue + " " + secondValue;
+            correctAnswers[i] = Integer.toString(correctAnswer);
+        }
+
+        Engine.playGame(gameDescription, questions, correctAnswers);
+
     }
 
 
@@ -35,15 +49,4 @@ public final class GCD {
         return b;
     }
 
-    public static void play() {
-
-        Engine.greet();
-        System.out.println("Find the greatest common divisor of given numbers.");
-
-        while (!Engine.isFinished()) {
-
-            Engine.playRound(getQuestion(), Integer.toString(correctAnswer));
-
-        }
-    }
 }

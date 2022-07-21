@@ -39,9 +39,8 @@ public class App {
             case "6": Prime.play();
                 break;
             case "0": break;
-            default: System.out.println("Введён неправильный номер.");
+            default: System.out.println("Incorrect number!");
         }
 
-
-     }
+    }
 }
