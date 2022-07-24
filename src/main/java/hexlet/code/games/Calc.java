@@ -1,53 +1,59 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
+import hexlet.code.Utils;
 
-import java.util.Random;
 
 public final class Calc {
-    private static final int MAX_VALUE = 20;
-    private static final int OPERATIONS_NUMBER = 3;
+    private static final int MAX_VALUE = 50;
+
+    private static final String GAME_DESCRIPTION = "What is the result of the expression?";
 
     public static void play() {
 
-        String gameDescription = "What is the result of the expression?";
+        int countRounds = Engine.COUNT_ROUNDS;
+        String[][] questions = new String[countRounds][2];
 
-        int countRounds = Engine.getCountRounds();
-        String[] questions = new String[countRounds];
-        String[] correctAnswers = new String[countRounds];
-
-        Random rnd = new Random();
+        String[] operators = {"+", "-", "*"};
         int operatorNumber;
         int firstValue;
         int secondValue;
-        String operator = "";
+        String operator;
         int correctAnswer;
 
         for (int i = 0; i < countRounds; i++) {
 
-            operatorNumber = rnd.nextInt(OPERATIONS_NUMBER);
-            firstValue = rnd.nextInt(MAX_VALUE);
-            secondValue = rnd.nextInt(MAX_VALUE);
+            operatorNumber = Utils.getRandomValue(operators.length);
+            operator = operators[operatorNumber];
+            firstValue = Utils.getRandomValue(MAX_VALUE);
+            secondValue = Utils.getRandomValue(MAX_VALUE);
 
-            switch (operatorNumber) {
-                case 0: operator = "+";
-                    correctAnswer = firstValue + secondValue;
-                    break;
-                case 1: operator = "*";
-                    correctAnswer = firstValue * secondValue;
-                    break;
-                case 2: operator = "-";
-                    correctAnswer = firstValue - secondValue;
-                    break;
-                default: correctAnswer = 0;
-                    break;
-            }
+            correctAnswer = calculate(firstValue, secondValue, operator);
 
-            questions[i] = firstValue + " " + operator + " " + secondValue;
-            correctAnswers[i] = Integer.toString(correctAnswer);
+            questions[i][0] = firstValue + " " + operator + " " + secondValue;
+            questions[i][1] = Integer.toString(correctAnswer);
+
         }
 
-        Engine.playGame(gameDescription, questions, correctAnswers);
+        Engine.playGame(GAME_DESCRIPTION, questions);
+
+    }
+
+    private static int calculate(int firstValue, int secondValue, String operator) {
+
+        switch (operator) {
+
+            case "+":
+                return firstValue + secondValue;
+
+            case "*":
+                return firstValue * secondValue;
+
+            case "-":
+                return firstValue - secondValue;
+
+            default: throw new RuntimeException("Undefined operator!");
+        }
 
     }
 

@@ -26,7 +26,7 @@ public class App {
         String choice = scanner.next();
 
         switch (choice) {
-            case "1": Engine.greetAndGetUserName();
+            case "1": Engine.playGame("Greeting", null);
                 break;
             case "2": Even.play();
                 break;
@@ -41,6 +41,8 @@ public class App {
             case "0": break;
             default: System.out.println("Incorrect number!");
         }
+
+        scanner.close();
 
     }
 }

@@ -1,56 +1,48 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-
-import java.util.Arrays;
-import java.util.Random;
+import hexlet.code.Utils;
 
 public final class Prime {
 
-    private static final int[] PRIMES = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
-                                         31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
-                                         73, 79, 83, 89, 97, 101, 103, 107, 109,
-                                         113, 127, 131, 137, 139, 149, 151, 157,
-                                         163, 167, 173, 179, 181, 191, 193, 197,
-                                         199, 211, 223, 227, 229, 233, 239, 241,
-                                         251, 257, 263, 269, 271, 277, 281, 283,
-                                         293, 307, 311, 313, 317, 331, 337, 347,
-                                         349, 353, 359, 367, 373, 379, 383, 389,
-                                         397, 401, 409, 419, 421, 431, 433, 439,
-                                         443, 449, 457, 461, 463, 467, 479, 487,
-                                         491, 499, 503, 509, 521, 523, 541};
+    private static final int MAX_VALUE = 1000;
 
+    private static final String GAME_DESCRIPTION = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
 
     public static void play() {
 
-        String gameDescription = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+        int countRounds = Engine.COUNT_ROUNDS;
+        String[][] questions = new String[countRounds][2];
 
-        int countRounds = Engine.getCountRounds();
-        String[] questions = new String[countRounds];
-        String[] correctAnswers = new String[countRounds];
-
-        int maxPrime = PRIMES[PRIMES.length - 1];
-        Random rnd = new Random();
         int currentValue;
         String correctAnswer;
 
         for (int i = 0; i < countRounds; i++) {
 
-            currentValue = Math.abs(rnd.nextInt(maxPrime));
+            currentValue = Math.abs(Utils.getRandomValue(MAX_VALUE));
             correctAnswer = isPrime(currentValue) ? "yes" : "no";
 
-            questions[i] = Integer.toString(currentValue);
-            correctAnswers[i] = correctAnswer;
+            questions[i][0] = Integer.toString(currentValue);
+            questions[i][1] = correctAnswer;
 
         }
 
-        Engine.playGame(gameDescription, questions, correctAnswers);
+        Engine.playGame(GAME_DESCRIPTION, questions);
 
     }
 
 
     private static boolean isPrime(int number) {
-        return Arrays.binarySearch(PRIMES, number) >= 0;
+
+        for (int i = 2; i < Math.sqrt(number); i++) {
+
+            if (number % i == 0) {
+                return false;
+            }
+
+        }
+
+        return true;
     }
 
 

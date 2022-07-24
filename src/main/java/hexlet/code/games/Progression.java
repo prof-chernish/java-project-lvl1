@@ -1,8 +1,7 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-
-import java.util.Random;
+import hexlet.code.Utils;
 
 public final class Progression {
     private static final int MAX_VALUE = 30;
@@ -10,54 +9,65 @@ public final class Progression {
     private static final int MAX_LENGTH = 10;
     private static final int MIN_LENGTH = 5;
 
+    private static final String GAME_DESCRIPTION = "What number is missing in the progression?";
+
     public static void play() {
 
-        String gameDescription = "What number is missing in the progression?";
+        int countRounds = Engine.COUNT_ROUNDS;
+        String[][] questions = new String[countRounds][2];
 
-        int countRounds = Engine.getCountRounds();
-        String[] questions = new String[countRounds];
-        String[] correctAnswers = new String[countRounds];
-
-        Random rnd = new Random();
         int progressionLength;
         int hiddenElementNumber;
         int firstElement;
         int differ;
-        int currentElement;
         String question;
-        int correctAnswer = 0;
+        int[] progression;
+        int correctAnswer;
 
         for (int i = 0; i < countRounds; i++) {
-            progressionLength = rnd.nextInt(MIN_LENGTH, MAX_LENGTH + 1);
-            hiddenElementNumber = rnd.nextInt(progressionLength);
-            firstElement = rnd.nextInt(MAX_VALUE);
-            differ = rnd.nextInt(MAX_DIFFER);
-            currentElement = firstElement;
+
+            progressionLength = Utils.getRandomValue(MIN_LENGTH, MAX_LENGTH + 1);
+            hiddenElementNumber = Utils.getRandomValue(progressionLength);
+            firstElement = Utils.getRandomValue(MAX_VALUE);
+            differ = Utils.getRandomValue(MAX_DIFFER);
+
+            progression = createProgression(progressionLength, firstElement, differ);
+            correctAnswer = progression[hiddenElementNumber];
             question = "";
 
             for (int j = 0; j < progressionLength; j++) {
 
                 if (j == hiddenElementNumber) {
                     question = question + " ..";
-                    correctAnswer = currentElement;
 
                 } else {
 
-                    question = question + " " + currentElement;
+                    question = question + " " + progression[j];
 
                 }
 
-                currentElement += differ;
-
             }
 
-            questions[i] = question.trim();
-            correctAnswers[i] = Integer.toString(correctAnswer);
+            questions[i][0] = question.trim();
+            questions[i][1] = Integer.toString(correctAnswer);
 
         }
 
-        Engine.playGame(gameDescription, questions, correctAnswers);
+        Engine.playGame(GAME_DESCRIPTION, questions);
 
+    }
+
+    private static int[] createProgression(int progressionLength, int firstElement, int differ) {
+
+        int[] progression = new int[progressionLength];
+
+        for (int i = 0; i < progressionLength; i++) {
+
+            progression[i] = firstElement + i * differ;
+
+        }
+
+        return progression;
     }
 
 }
